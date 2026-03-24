@@ -1,5 +1,5 @@
 # Bitacora de Desarrollo
-- Iniciar el proyecto 
+1. Iniciar el proyecto 
     * Se ejecuta del npm init -y --scope=task_manager_api (nombre de la app)
     * Se ejecuta el mkdir para crear las carpetas para crear la arquitectura por capas 
 - Uso  de IA
@@ -26,4 +26,26 @@ Reto y Solucion
     Con todo todo lo basico se hace commit 
     "
     chore: Initialize project structure and basic documentation
+    "
+
+2. Archivos de configuracion 
+- Uso de IA
+    Prompt: "Generame una configuracion para los archivos de tsconfig.json, .eslintrc.json, .prettierrc , package.json teniendo en cuenta el contexto de la aplicacion relacionado con las dependecias y las dependecias de desarrollo"
+    Respuesta: 
+    "
+    creacion de archivo .eslintrc.json
+    creacion de archivo .prettierrc
+    creacion de archivo tsconfig.json
+    modificacion de package.json
+    "
+    Se acepta: "Se acepta los archivos cumplen con lo requerido y son consistendes referente a las dependecias instaladas "
+    Verificacion:
+    "
+    tsconfig.json = el target es compatible con nodejs actual,
+    hace la separacion de compilado del rootdir y outdir,
+    tiene seguridad de los tipos
+
+    .eslint.json = toma como referente el tsconfig.json para el analisis de tipos , prettier al final para desactivar reglas que conflictúan con el formateador
+
+    .prettierrc = configuracion echa como extension teniendo en cuenta el .eslint.json , acorde 
     "
