@@ -98,3 +98,28 @@ Separacion de archivos:
     app.ts = routes , middleware 
     server.ts  = conexion a db y encendiddo de servidor
     
+6. Base de datos- Prisma client
+Reto y soluciones
+error en import @prisma/client
+Uso de IA:
+    Prompt:
+    "
+    El módulo '"@prisma/client"' no tiene ningún miembro 'PrismaClient' exportado.ts(2305)
+    import PrismaClient
+    me marca este error pero yo ya genere el prisma y las migraciones ya las hice 
+    "
+    Respuesta:
+    "
+    En Prisma 7, el generador por defecto cambió de prisma-client-js a prisma-client. Con el nuevo generador, los tipos se generan en una carpeta local del proyecto por lo que el import desde @prisma/client ya no funciona igual.
+    - Actualizar el schema para usar el nuevo generador
+    generator client {
+        provider = "prisma-client"
+        output   = "../src/generated/prisma"
+    }
+    "
+    Se acepta: " Consulte en la documentacion(https://www.prisma.io/docs/guides/upgrade-prisma-orm/v7#driver-adapters-and-client-instantiation) y es acorde a la solucion"
+    Verificacion:
+    "
+    En la documentacion nos dice que la version de prisma 7 cambiaron el proveedor de prisma-client-js y lo actualizaron a prisma-client la nueva forma nos dice que la forma toca poner el output para generar la nueva carpeta que anterior mente estaba en node_modules ahora va en una carpeta local y la fomra de importacion para el cliente es 
+    import { PrismaClient } from "./generated/prisma/client"
+    " 
