@@ -21,8 +21,9 @@ Este proyecto consiste en el desarrollo de una API RESTful robusta y segura util
   /services         # Lógica de negocio reutilizable 
   /persistence      # Prisma / Repositorios 
   /config           # Singleton de configuración (.env) 
-  /utils            # Clases de error personalizadas y Helpers 
+  /utils            # Helpers 
   /schemas          # Validaciones con Zod 
+  /errores          # Errores personalizados
   app.ts            # Configura Express, middlewares y rutas
   server.ts         # Servidor
 

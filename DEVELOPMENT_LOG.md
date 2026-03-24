@@ -143,3 +143,24 @@ Uso de IA:
     "
     el cambio de el Inline Type de hacer el {} a Named Type mejora la escalabilidad del codigo , mejor practica , la documentacion tsdoc es acorde 
     "
+7. Errores personalizados
+cambio de funcion carpeta
+util para helpers
+error para manejar lo de errores personalizados
+
+Uso de IA:
+    Prompt:
+    "
+    Generame una clase para errores personalizados teniendo en cuenta los repositorio userRepository.ts, taskRepository.ts , que tenga la documentacion en Tsdocs
+    "
+    Respuesta:
+    "
+    Creacion de archivo AppError.ts (completo)
+    Creacion de archivo errorHandler.ts (completo)
+    linea añadida donde importa el middleware
+    "
+    Se acepta:"Se acepta porque transforma el manejo de errores de un sistema basado en cadenas de texto a un sistema basado en Tipos y Semántica HTTP"
+    Verificacion:
+    "
+    Consultando en la documentacion (https://javascript.info/custom-errors) cumple de manera correcta para hacer errores personalizados
+    "
