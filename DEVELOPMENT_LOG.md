@@ -49,3 +49,25 @@ Reto y Solucion
 
     .prettierrc = configuracion echa como extension teniendo en cuenta el .eslint.json , acorde 
     "
+3. Inicializa Prisma
+No uso de IA 
+pnpm dlx prisma init
+Creacion de modelos
+    
+    - User: datos basicos y relacion con el modelo de task para relacion 1 a N (tareas personales, un usuario puede tener varias tareas)
+
+    - Task: datos basicos , campos que son opcionales, tipo enum para manejar los estados de la tarea , relacion con user con el id, cada tarea solo puede tener un user 
+
+    - tipo ENUM para manejar estados de la tarea (tener prefijos para evitar errores luego)
+- Retos y soluciones 
+No me dejaba hacer la migracion para crear las tablas con prisma, no detectaba la dependecia instalada
+Solucion:
+Borre el node_modules y volvi a descargar el pnpm install y no me habia dado cuenta que no active los build scripts y ejecute pnpm approve-builds y ya me dejo hacer la migracion
+Error en el archivo de schema.prisma 
+solucion: la version de prisma  7.5.0 maneja las conexiones de forma diferente para alinearse a entornos modernos 
+yo tenia en el schema.prisma 
+datasource db {
+  provider = "postgresql"
+  // Borra la línea de error = env("DATABASE_URL")
+}
+prisma hace la conexion dinamica con el archivo prisma.config.ts
