@@ -123,3 +123,23 @@ Uso de IA:
     En la documentacion nos dice que la version de prisma 7 cambiaron el proveedor de prisma-client-js y lo actualizaron a prisma-client la nueva forma nos dice que la forma toca poner el output para generar la nueva carpeta que anterior mente estaba en node_modules ahora va en una carpeta local y la fomra de importacion para el cliente es 
     import { PrismaClient } from "./generated/prisma/client"
     " 
+6. Repositorios - User , Task
+No uso de IA
+userRepository.ts
+taskRepository.ts
+se crean estos dos archivos basicos para el manejo de consultas con orm
+Uso de IA:
+    Prompt:
+    "
+    Verifica los archivos userRepository.ts, taskRepository.ts y corrige los defectos que tengan tambien documenta con tsdoc los dos documentos 
+    "
+    Respuesta:
+    "
+    modifica taskRepository.ts añade interface para hacer plantila,
+    añade la documentacion tsdoc
+    "
+    Se acepta:"Porque mejora el codigo a la hora de utilizar la interface  , la documentacion tsdoc se encuentra bien "
+    Verificacion:
+    "
+    el cambio de el Inline Type de hacer el {} a Named Type mejora la escalabilidad del codigo , mejor practica , la documentacion tsdoc es acorde 
+    "

@@ -7,10 +7,10 @@ Este proyecto consiste en el desarrollo de una API RESTful robusta y segura util
   npm init -y --scope=task_manager_api
 
 - Dependecias
-  pnpm add express jsonwebtoken bcrypt @prisma/client zod swagger-ui-express yamljs dotenv
+  pnpm add express jsonwebtoken bcrypt @prisma/client zod swagger-ui-express yamljs dotenv @prisma/adapter-pg pg
 
 - Ddependecias de Desarrollo
-  pnpm add -D typescript ts-node-dev @types/express @types/node @types/jsonwebtoken @types/bcrypt @types/swagger-ui-express @types/yamljs eslint prettier eslint-config-prettier eslint-plugin-prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser prisma
+  pnpm add -D typescript ts-node-dev @types/express @types/node @types/jsonwebtoken @types/bcrypt @types/swagger-ui-express @types/yamljs eslint prettier eslint-config-prettier eslint-plugin-prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser prisma @types/pg
 
 - Arquitectura en capas 
 /src
