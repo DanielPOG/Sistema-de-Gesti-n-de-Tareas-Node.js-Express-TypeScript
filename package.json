@@ -1,0 +1,30 @@
+{
+  "name": "task_manager_api",
+  "version": "1.0.0",
+  "description": "npm init -y --scope=task-manager-api iniciar",
+  "homepage": "https://github.com/DanielPOG/Sistema-de-Gesti-n-de-Tareas-Node.js-Express-TypeScript#readme",
+  "bugs": {
+    "url": "https://github.com/DanielPOG/Sistema-de-Gesti-n-de-Tareas-Node.js-Express-TypeScript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielPOG/Sistema-de-Gesti-n-de-Tareas-Node.js-Express-TypeScript.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.5.0",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0",
+    "zod": "^4.3.6"
+  }
+}
