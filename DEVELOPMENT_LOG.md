@@ -92,4 +92,9 @@ Se crea el archivo bajo 3 cosas que debe llevar el archivo
     "
     Se investiga el metodo require y porque es necesario, se revisa  las etiquetas que utiliza en el TSDocs para ver si es acorde a la documentacion ( en https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html y en https://github.com/microsoft/FluidFramework/wiki/TSDoc-Guidelines)
     "
+5. Primeros archivos
+No uso de IA
+Separacion de archivos:
+    app.ts = routes , middleware 
+    server.ts  = conexion a db y encendiddo de servidor
     

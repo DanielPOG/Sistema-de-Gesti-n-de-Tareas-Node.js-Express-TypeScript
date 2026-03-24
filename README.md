@@ -23,6 +23,7 @@ Este proyecto consiste en el desarrollo de una API RESTful robusta y segura util
   /config           # Singleton de configuración (.env) 
   /utils            # Clases de error personalizadas y Helpers 
   /schemas          # Validaciones con Zod 
-  index.ts          # Punto de entrada
+  app.ts            # Configura Express, middlewares y rutas
+  server.ts         # Servidor
 
 configuracion del env
