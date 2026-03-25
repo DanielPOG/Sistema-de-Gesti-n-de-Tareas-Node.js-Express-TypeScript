@@ -1,330 +1,366 @@
-# Bitacora de Desarrollo
-1. Iniciar el proyecto 
-    * Se ejecuta del npm init -y --scope=task_manager_api (nombre de la app)
-    * Se ejecuta el mkdir para crear las carpetas para crear la arquitectura por capas 
-- Uso  de IA
-    Prompt: "En un proyecto para hacer una Api Rest con las tecnologias NodeJs + Express + TypeScript y de bd el ORM de prisma con Postgresql dame las dependecias para eso y hacer autenticacion con json web token  y para hashear contraseñas con bycript y las validaciones con zod, para poder accerder al env y tambien las dependecias de desarrollo toma encuenta lo del eslint y prettier y los type para typeScript para que funcione bien "
-    Respuesta: 
-    "
-    Dependecias de produccion
-    npm install express prisma @prisma/client jsonwebtoken bcrypt
-    zod dotenv
-    Dependecias de desarrollo
-    npm install -D typescript ts-node-dev tsconfig-paths @types/node @types/express @types/jsonwebtoken @types/bcryptjs eslint prettier eslint-config-prettier eslint-plugin-prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin
-    "
-    Se acepta: "En referencia a la web npmjs.com son consistentes las dependecias y se añade las restantes de documentacion swagger-ui-express yamljs"
+# Development Log
 
-Reto y Solucion 
- * El gestor de paquetes npm me estaba dando errores a la hora de descargar las dependecias del proyecto y se quedaba pegada la consola mediante el uso de npm
- solucion:
-    # Se borra la carpeta node_modules y el package-lock.json
-    # se borra el cache de npm 
-    # nuevo gestor de paquetes pnpm 
-    # inidicio de cambio aparece los warn de que detecto la misma dependecia sin embargo le puso el .ignored
+## 1. Inicialización del proyecto
 
-- Git push al repositorio
-    Con todo todo lo basico se hace commit 
-    "
-    chore: Initialize project structure and basic documentation
-    "
+Se ejecuta `npm init -y --scope=task_manager_api` para crear el proyecto.
+Se ejecuta `mkdir` para crear las carpetas de la arquitectura por capas.
 
-2. Archivos de configuracion 
-- Uso de IA
-    Prompt: "Generame una configuracion para los archivos de tsconfig.json, .eslintrc.json, .prettierrc , package.json teniendo en cuenta el contexto de la aplicacion relacionado con las dependecias y las dependecias de desarrollo"
-    Respuesta: 
-    "
-    creacion de archivo .eslintrc.json
-    creacion de archivo .prettierrc
-    creacion de archivo tsconfig.json
-    modificacion de package.json
-    "
-    Se acepta: "Se acepta los archivos cumplen con lo requerido y son consistendes referente a las dependecias instaladas "
-    Verificacion:
-    "
-    tsconfig.json = el target es compatible con nodejs actual,
-    hace la separacion de compilado del rootdir y outdir,
-    tiene seguridad de los tipos
+### Uso de IA
 
-    .eslint.json = toma como referente el tsconfig.json para el analisis de tipos , prettier al final para desactivar reglas que conflictúan con el formateador
+**Prompt:**
+> En un proyecto para hacer una Api Rest con las tecnologias NodeJs + Express + TypeScript y de bd el ORM de prisma con Postgresql dame las dependecias para eso y hacer autenticacion con json web token y para hashear contraseñas con bycript y las validaciones con zod, para poder accerder al env y tambien las dependecias de desarrollo toma encuenta lo del eslint y prettier y los type para typeScript para que funcione bien
 
-    .prettierrc = configuracion echa como extension teniendo en cuenta el .eslint.json , acorde 
-    "
-3. Inicializa Prisma
-No uso de IA 
+**Respuesta recibida:**
+```
+Dependencias de produccion
+npm install express prisma @prisma/client jsonwebtoken bcrypt zod dotenv
+
+Dependencias de desarrollo
+npm install -D typescript ts-node-dev tsconfig-paths @types/node @types/express
+@types/jsonwebtoken @types/bcryptjs eslint prettier eslint-config-prettier
+eslint-plugin-prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin
+```
+
+**Qué se aceptó y por qué:**
+Referenciando npmjs.com, las dependencias son consistentes. Se añaden adicionalmente `swagger-ui-express` y `yamljs` para la documentación.
+
+### Retos y soluciones
+
+**Problema:** El gestor de paquetes `npm` generaba errores al descargar las dependencias y la consola se quedaba bloqueada.
+
+**Solución:**
+1. Se eliminó la carpeta `node_modules` y el archivo `package-lock.json`
+2. Se limpió el caché de npm
+3. Se migró al gestor de paquetes `pnpm`
+4. Al iniciar con `pnpm` aparecieron advertencias de dependencias duplicadas marcadas como `.ignored`
+
+### Commit
+```
+chore: Initialize project structure and basic documentation
+```
+
+---
+
+## 2. Archivos de configuración
+
+### Uso de IA
+
+**Prompt:**
+> Generame una configuracion para los archivos de tsconfig.json, .eslintrc.json, .prettierrc, package.json teniendo en cuenta el contexto de la aplicacion relacionado con las dependecias y las dependecias de desarrollo
+
+**Respuesta recibida:**
+- Creación de `.eslintrc.json`
+- Creación de `.prettierrc`
+- Creación de `tsconfig.json`
+- Modificación de `package.json`
+
+**Qué se aceptó y por qué:**
+Se aceptan los archivos porque cumplen con lo requerido y son consistentes respecto a las dependencias instaladas.
+
+**Verificación realizada:**
+
+- `tsconfig.json` — El target es compatible con Node.js actual, hace la separación de compilado entre `rootDir` y `outDir`, tiene seguridad de tipos activada.
+- `.eslintrc.json` — Toma como referente `tsconfig.json` para el análisis de tipos. Prettier al final para desactivar reglas que conflictúan con el formateador.
+- `.prettierrc` — Configuración hecha como extensión teniendo en cuenta `.eslintrc.json`, acorde y sin conflictos.
+
+---
+
+## 3. Inicialización de Prisma
+
+**Sin uso de IA.**
+```bash
 pnpm dlx prisma init
-Creacion de modelos
-    
-    - User: datos basicos y relacion con el modelo de task para relacion 1 a N (tareas personales, un usuario puede tener varias tareas)
+```
 
-    - Task: datos basicos , campos que son opcionales, tipo enum para manejar los estados de la tarea , relacion con user con el id, cada tarea solo puede tener un user 
+**Creación de modelos:**
 
-    - tipo ENUM para manejar estados de la tarea (tener prefijos para evitar errores luego)
-- Retos y soluciones 
-No me dejaba hacer la migracion para crear las tablas con prisma, no detectaba la dependecia instalada
-Solucion:
-Borre el node_modules y volvi a descargar el pnpm install y no me habia dado cuenta que no active los build scripts y ejecute pnpm approve-builds y ya me dejo hacer la migracion
-Error en el archivo de schema.prisma 
-solucion: la version de prisma  7.5.0 maneja las conexiones de forma diferente para alinearse a entornos modernos 
-yo tenia en el schema.prisma 
+- `User` — Datos básicos y relación con el modelo `Task` para una relación 1 a N. Un usuario puede tener varias tareas personales.
+- `Task` — Datos básicos, campos opcionales, tipo `enum` para manejar los estados de la tarea, relación con `User` mediante `userId`. Cada tarea solo puede pertenecer a un usuario.
+- Tipo `ENUM` para manejar estados de la tarea con prefijos para evitar errores en tiempo de ejecución.
+
+### Retos y soluciones
+
+**Problema:** No era posible realizar la migración para crear las tablas con Prisma. No detectaba la dependencia instalada.
+
+**Solución:** Se eliminó `node_modules` y se volvió a ejecutar `pnpm install`. No se habían activado los build scripts, por lo que se ejecutó `pnpm approve-builds` y la migración procedió correctamente.
+
+**Problema:** Error en el archivo `schema.prisma`.
+
+**Solución:** La versión de Prisma 7.5.0 maneja las conexiones de forma diferente para alinearse a entornos modernos. El schema anterior usaba:
+```prisma
 datasource db {
   provider = "postgresql"
-  // Borra la línea de error = env("DATABASE_URL")
 }
-prisma hace la conexion dinamica con el archivo prisma.config.ts
-4. Archivo de Singleton para env
-Creacion de archivo env.ts para configurar el singleton
-No uso de IA
-busco un video de como diseñarlo (https://youtu.be/UekxC1hvurk)
-Se crea el archivo bajo 3 cosas que debe llevar el archivo
-    * una variable estatica para poder instanciar
-    * una clase contructor 
-    * un metodo publico que sea estatico
-- Uso de IA:
-    Prompt:"En el archivo env.ts en la ruta config/env.ts se encuentra un Singleton basico para el port ayudame a generarlo para var de la bd , del jwt token y agrega documentacion en TSDocs clara concisa y maneja buenas practicas "
-    Respuesta:
-    "
-    Documentacion TSDocs 
-    Fix de error de export 
-    Añadio metodo require
-    "
-    Se acepta: "Se aceptan cambios porque mejoro el codigo la legibilidad y arreglo un error critico en la exportacion, ademas añadio el metodo require para verificar si la variable existe o no"
-    Verificacion:  
-    "
-    Se investiga el metodo require y porque es necesario, se revisa  las etiquetas que utiliza en el TSDocs para ver si es acorde a la documentacion ( en https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html y en https://github.com/microsoft/FluidFramework/wiki/TSDoc-Guidelines)
-    "
-5. Primeros archivos
-No uso de IA
-Separacion de archivos:
-    app.ts = routes , middleware 
-    server.ts  = conexion a db y encendiddo de servidor
-    
-6. Base de datos- Prisma client
-Reto y soluciones
-error en import @prisma/client
-Uso de IA:
-    Prompt:
-    "
-    El módulo '"@prisma/client"' no tiene ningún miembro 'PrismaClient' exportado.ts(2305)
-    import PrismaClient
-    me marca este error pero yo ya genere el prisma y las migraciones ya las hice 
-    "
-    Respuesta:
-    "
-    En Prisma 7, el generador por defecto cambió de prisma-client-js a prisma-client. Con el nuevo generador, los tipos se generan en una carpeta local del proyecto por lo que el import desde @prisma/client ya no funciona igual.
-    - Actualizar el schema para usar el nuevo generador
-    generator client {
-        provider = "prisma-client"
-        output   = "../src/generated/prisma"
-    }
-    "
-    Se acepta: " Consulte en la documentacion(https://www.prisma.io/docs/guides/upgrade-prisma-orm/v7#driver-adapters-and-client-instantiation) y es acorde a la solucion"
-    Verificacion:
-    "
-    En la documentacion nos dice que la version de prisma 7 cambiaron el proveedor de prisma-client-js y lo actualizaron a prisma-client la nueva forma nos dice que la forma toca poner el output para generar la nueva carpeta que anterior mente estaba en node_modules ahora va en una carpeta local y la fomra de importacion para el cliente es 
-    import { PrismaClient } from "./generated/prisma/client"
-    " 
-6. Repositorios - User , Task
-No uso de IA
-userRepository.ts
-taskRepository.ts
-se crean estos dos archivos basicos para el manejo de consultas con orm
-Uso de IA:
-    Prompt:
-    "
-    Verifica los archivos userRepository.ts, taskRepository.ts y corrige los defectos que tengan tambien documenta con tsdoc los dos documentos 
-    "
-    Respuesta:
-    "
-    modifica taskRepository.ts añade interface para hacer plantila,
-    añade la documentacion tsdoc
-    "
-    Se acepta:"Porque mejora el codigo a la hora de utilizar la interface  , la documentacion tsdoc se encuentra bien "
-    Verificacion:
-    "
-    el cambio de el Inline Type de hacer el {} a Named Type mejora la escalabilidad del codigo , mejor practica , la documentacion tsdoc es acorde 
-    "
-7. Errores personalizados
-cambio de funcion carpeta
-util para helpers
-error para manejar lo de errores personalizados
+```
 
-Uso de IA:
-    Prompt:
-    "
-    Generame una clase para errores personalizados teniendo en cuenta los repositorio userRepository.ts, taskRepository.ts , que tenga la documentacion en Tsdocs
-    "
-    Respuesta:
-    "
-    Creacion de archivo AppError.ts (completo)
-    Creacion de archivo errorHandler.ts (completo)
-    linea añadida donde importa el middleware
-    "
-    Se acepta:"Se acepta porque transforma el manejo de errores de un sistema basado en cadenas de texto a un sistema basado en Tipos y Semántica HTTP"
-    Verificacion:
-    "
-    Consultando en la documentacion (https://javascript.info/custom-errors) cumple de manera correcta para hacer errores personalizados
-    "
-8. Auth
-zod
-No uso de IA
-se crea el archivo de schemas.ts para la validacion de zod 
-    razonamiento:
-    "
-    Se utiliza zod como validor de schemas para la validacion de reglas en tiempo de ejecucion, saneamiento ademas asi reducimos los errores inesperados 
-    "
-Middleware de validacion para zod 
-se crea el archivo validate.ts para que la validacion zod se cumpla
-    razonamiento:
-    "
-    Se utiliza para el saneamiento, el parseo y la protección de la lógica de negocio, asegurando que el controlador solo reciba datos que cumplen estrictamente con el contrato definido por el esquema
-    "
-Uso de IA 
-    Prompt:
-    "
-    Vamos hacer la logica en el serice pero para lo relacionado con el auth , en este caso para register y login, ten encuenta lo del hash con bcrypt
-    "
-    Respuesta:
-    "
-    authService.ts creado 
-    contiene funcion register , funcion login
-    "
-    se acepta:"Se acepta porque las funciones son correctas, hace el uso del repositorio , maneja los errores personalizados y cumple la regla del hash  a la contraseña"
-    Verificacion:
-    "
-    Cumple con los criterios del service 
-    No aluciona respecto a los errores
-    utiliza los registerDto y logindto
-    "
-Uso de Ia:
-    Prompt:
-    "
-    Teniendo el cuenta el authService.ts crea el controller con el nombre de authController (tipa estrictamente) y crea tambien el autGuard que es el middleware para proteger rutas privadas verificando el Token JWT
-    "
-    Respuesta:
-    "
-    authController.ts creado
-    authGuard.ts creado
-    "
-    Se acepta:
-    "
-    authController.ts = Orquesta la comunicacion http de manera correcta
-    authGuard.ts = La extraccion del token es correcta con Bearer  y solo se queda el token con el split, hace verificacion 
-    "
-    Verificacion:
-    "
-    authController.ts
-    tipa estrictamente referente al request nada de parametros {}
-    las funciones  son async maneja el uso de errores 
-    authGuard.ts
-    Se verifica la autenticidad e integridad de la petición mediante la validación del esquema Bearer Token, valida firma y inyecta identidad  del usuario userId
-    "
-No uso de IA
-se crea el archivo authRoutes.ts donde se mapea los endpoints
-9. Task Crud
-Uso de IA:
-    Prompt:
-    "
-    Contexto:
-    Generar el módulo de tareas (Task) para una API REST con Node.js y TypeScript, siguiendo una arquitectura de tres capas y respetando la relación 1:N (un usuario tiene muchas tareas).
+Prisma 7 realiza la conexión dinámica mediante el archivo `prisma.config.ts`.
 
-    Archivos a generar:
+---
 
-    taskService.ts: Lógica de negocio para create, getAll (filtrado por userId), getById, update y delete. Debe asegurar que un usuario solo pueda modificar sus propias tareas.
+## 4. Singleton de configuración
 
-    taskController.ts: Orquestador que extraiga el userId de req.user (inyectado por el authGuard) y maneje las respuestas HTTP con códigos de estado correctos (201, 200, 204).
+**Sin uso de IA.**
 
-    taskRoutes.ts: Definición de rutas protegidas. Todas las rutas deben usar el authGuard. Las rutas POST y PATCH deben incluir el middleware de validación con Zod.
+Se crea el archivo `config/env.ts` para configurar el Singleton. Se consultó el recurso [youtu.be/UekxC1hvurk](https://youtu.be/UekxC1hvurk) como referencia de diseño.
 
-    Requisitos técnicos:
+El archivo se construye bajo tres pilares:
+1. Una variable estática para poder instanciar
+2. Un constructor privado de clase
+3. Un método público estático
 
-    Uso de Prisma ORM para la persistencia.
+### Uso de IA
 
-    Implementación de DTOs para la creación y actualización de tareas.
+**Prompt:**
+> En el archivo env.ts en la ruta config/env.ts se encuentra un Singleton basico para el port ayudame a generarlo para var de la bd, del jwt token y agrega documentacion en TSDocs clara concisa y maneja buenas practicas
 
-    Manejo de errores centralizado con AppError (NotFoundError, ForbiddenError).
+**Respuesta recibida:**
+- Documentación TSDoc añadida
+- Fix de error en la exportación
+- Añadido método `require` para validar existencia de variables
 
-    Tipado estricto en cada capa.
-    "
-    Respuesta:
-    "
-    taskService.ts creado
-    taskController.ts creado 
-    taskRoutes.ts creado
-    "
-    Se acepta:
-    "
-    taskService.ts
-    Encapsula las reglas de negocio de las tareas 
-    taskController.ts
-    Desacopla el protocolo HTTP de la lógica de forma correcta
-    taskRoutes.ts
-    Define el pipeline de ejecución de la API
-    "
-    Verificacion:
-    "
-    Valida la propiedad del recurso mediante el userId,
-    Gestiona códigos de estado (201, 204) y captura errores.
-    Aplica el authGuard y el middleware de validación en orden, 
-    "
-No uso de IA
-Integracion a app.ts 
+**Qué se aceptó y por qué:**
+Se aceptan los cambios porque mejoraron la legibilidad, corrigieron un error crítico en la exportación y añadieron el método `require` para verificar si una variable existe o no al arrancar el servidor.
 
-10. Documentacion Swagger
-Uso de IA:
-    prompt:
-    "
-    Contexto:
-    Generar la especificación técnica de la API en formato YAML (OpenAPI 3.0.0) para un sistema de gestión de tareas. La API utiliza una arquitectura REST y seguridad basada en JWT (Bearer Auth).
+**Verificación realizada:**
+Se investigó el método `require` y su necesidad. Se revisaron las etiquetas TSDoc contra la documentación oficial:
+- [typescriptlang.org — JSDoc supported types](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html)
+- [TSDoc Guidelines — FluidFramework](https://github.com/microsoft/FluidFramework/wiki/TSDoc-Guidelines)
 
-    Requisitos del contrato:
+---
 
-    Endpoints de Autenticación: POST /auth/register y POST /auth/login.
+## 5. Archivos base del servidor
 
-    Endpoints de Tareas (Protegidos): CRUD completo para /tasks y /tasks/{id}, asegurando que cada operación requiera el token en el header.
+**Sin uso de IA.**
 
-    Modelos de Datos (Schemas): Definir objetos para User, Task, SuccessResponse y ErrorResponse (con mensajes de error estandarizados).
+Separación de responsabilidades entre dos archivos:
 
-    Validaciones: Incluir formatos de datos (uuid, email, date-time) y códigos de estado HTTP correctos (200, 201, 401, 403, 404, 409).
+- `app.ts` — Configuración de rutas y middlewares
+- `server.ts` — Conexión a la base de datos y arranque del servidor
 
-    Objetivo:
-    Obtener un archivo swagger.yaml que sirva como "fuente de verdad" para el equipo de Frontend y que pueda ser renderizado mediante Swagger UI.
-    "
-    Respuesta:
-    "
-    swagger.yaml creado
-    "
-    Se acepto:
-    "
-    Se aceptó la implementación de la documentación con Swagger para estandarizar la comunicación entre el Backend y el Frontend. El uso de un contrato formal elimina ambigüedades en los tipos de datos, facilita las pruebas automáticas y permite que otros desarrolladores entiendan e integren la API sin necesidad de leer el código fuente
-    "
-    verificacion:
-    "
-    contrato de Seguridad, Estandarización de respuestas
-    "
-11. Pruebas unitarias vitest 
-Uso de IA:
-    Prompt:
-    "
-    Desarrollar  pruebas unitarias utilizando Vitest para validar la lógica de negocio de una API REST . Se busca garantizar que los servicios respondan correctamente tanto en casos de éxito como en escenarios de error de todos los modulos
-    "
-    Respuesta:
-    "
-    - AppError custom error classes
-    - authGuard JWT middleware
-    - errorHandler global middleware
-    - validate Zod middleware
-    - authService (register/login)
-    - taskService (CRUD + ownership)
-    - authController
-    - taskController
-    - Zod schemas validation
-    "
-    Se acepta:
-    "
-    Al implementar pruebas unitarias con Mocks, se logra validar la lógica de negocio de forma aislada de la infraestructura, lo que permite detectar errores
-    "
-    Verificacion:
-    "
-    independencia de Entorno = Se verifica que las pruebas se ejecutan correctamente en un entorno limpio de Node.js sin necesidad de levantar contenedores de base de dato
-    Control de Excepciones = Se verifica que el flujo de errores tipados (AppError) funcione correctamente, asegurando que el Frontend reciba códigos de estado precisos
-    "
+---
+
+## 6. Prisma Client y Repositorios
+
+### Prisma Client
+
+**Uso de IA.**
+
+**Prompt:**
+> El módulo '"@prisma/client"' no tiene ningún miembro 'PrismaClient' exportado.ts(2305). import PrismaClient me marca este error pero yo ya genere el prisma y las migraciones ya las hice
+
+**Respuesta recibida:**
+> En Prisma 7, el generador por defecto cambió de `prisma-client-js` a `prisma-client`. Con el nuevo generador, los tipos se generan en una carpeta local del proyecto por lo que el import desde `@prisma/client` ya no funciona igual.
+```prisma
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+```
+
+**Qué se aceptó y por qué:**
+Se consultó la documentación oficial de Prisma ([prisma.io/docs/guides/upgrade-prisma-orm/v7](https://www.prisma.io/docs/guides/upgrade-prisma-orm/v7#driver-adapters-and-client-instantiation)) y es acorde a la solución propuesta.
+
+**Verificación realizada:**
+La versión 7 de Prisma cambió el proveedor de `prisma-client-js` a `prisma-client`. La nueva forma requiere definir un `output` para generar la carpeta localmente. La importación correcta pasa a ser:
+```typescript
+import { PrismaClient } from "./generated/prisma/client"
+```
+
+### Repositorios
+
+**Sin uso de IA** para la creación inicial de `userRepository.ts` y `taskRepository.ts`.
+
+**Uso de IA para revisión:**
+
+**Prompt:**
+> Verifica los archivos userRepository.ts, taskRepository.ts y corrige los defectos que tengan tambien documenta con tsdoc los dos documentos
+
+**Respuesta recibida:**
+- Modificación de `taskRepository.ts` añadiendo una interface como plantilla
+- Documentación TSDoc añadida en ambos archivos
+
+**Qué se aceptó y por qué:**
+Se acepta porque el cambio de Inline Type (`{}`) a Named Type mediante una `interface` mejora la escalabilidad del código y sigue mejores prácticas. La documentación TSDoc es acorde.
+
+**Verificación realizada:**
+El cambio de Inline Type a Named Type mejora la escalabilidad del código. La documentación TSDoc es acorde a las guías oficiales.
+
+---
+
+## 7. Errores personalizados
+
+Reorganización de carpetas:
+- `utils/` — Para helpers genéricos
+- `errors/` — Para el manejo de errores personalizados
+
+### Uso de IA
+
+**Prompt:**
+> Generame una clase para errores personalizados teniendo en cuenta los repositorio userRepository.ts, taskRepository.ts, que tenga la documentacion en Tsdocs
+
+**Respuesta recibida:**
+- Creación completa de `AppError.ts`
+- Creación completa de `errorHandler.ts`
+- Línea añadida para importar el middleware en `app.ts`
+
+**Qué se aceptó y por qué:**
+Se acepta porque transforma el manejo de errores de un sistema basado en cadenas de texto a un sistema basado en tipos y semántica HTTP.
+
+**Verificación realizada:**
+Consultando la documentación de [javascript.info/custom-errors](https://javascript.info/custom-errors), la implementación cumple de manera correcta con el patrón de errores personalizados.
+
+---
+
+## 8. Autenticación
+
+### Schemas de validación con Zod
+
+**Sin uso de IA.**
+
+Se crea `utils/schemas.ts` para las validaciones con Zod.
+
+**Razonamiento:**
+Se utiliza Zod como validador de schemas para la validación de reglas en tiempo de ejecución y saneamiento de datos, reduciendo así los errores inesperados.
+
+### Middleware de validación
+
+**Sin uso de IA.**
+
+Se crea `validate.ts` para que la validación Zod se cumpla antes de llegar al controller.
+
+**Razonamiento:**
+Se utiliza para el saneamiento, el parseo y la protección de la lógica de negocio, asegurando que el controller solo reciba datos que cumplen estrictamente con el contrato definido por el schema.
+
+### Auth Service
+
+**Uso de IA.**
+
+**Prompt:**
+> Vamos hacer la logica en el service pero para lo relacionado con el auth, en este caso para register y login, ten encuenta lo del hash con bcrypt
+
+**Respuesta recibida:**
+- `authService.ts` creado con funciones `register` y `login`
+
+**Qué se aceptó y por qué:**
+Se acepta porque las funciones son correctas, hacen uso del repositorio, manejan los errores personalizados y cumplen la regla del hash a la contraseña.
+
+**Verificación realizada:**
+- Cumple con los criterios de la capa service
+- No alucina respecto a los errores personalizados
+- Utiliza correctamente `RegisterDto` y `LoginDto`
+
+### Auth Controller y Auth Guard
+
+**Uso de IA.**
+
+**Prompt:**
+> Teniendo el cuenta el authService.ts crea el controller con el nombre de authController (tipa estrictamente) y crea tambien el authGuard que es el middleware para proteger rutas privadas verificando el Token JWT
+
+**Respuesta recibida:**
+- `authController.ts` creado
+- `authGuard.ts` creado
+
+**Qué se aceptó y por qué:**
+
+- `authController.ts` — Orquesta la comunicación HTTP de manera correcta
+- `authGuard.ts` — La extracción del token es correcta con `Bearer` y solo conserva el token con el `split`. Hace la verificación correctamente.
+
+**Verificación realizada:**
+
+- `authController.ts` — Tipa estrictamente el `Request`, las funciones son `async` y manejan errores con `next`.
+- `authGuard.ts` — Verifica la autenticidad e integridad de la petición mediante la validación del esquema Bearer Token, valida la firma e inyecta la identidad del usuario (`userId`) en el request.
+
+### Rutas de autenticación
+
+**Sin uso de IA.**
+
+Se crea `authRoutes.ts` donde se mapean los endpoints de autenticación.
+
+---
+
+## 9. CRUD de tareas
+
+### Uso de IA
+
+**Prompt:**
+> Contexto: Generar el módulo de tareas (Task) para una API REST con Node.js y TypeScript, siguiendo una arquitectura de tres capas y respetando la relación 1:N (un usuario tiene muchas tareas).
+>
+> Archivos a generar:
+> - `taskService.ts`: Lógica de negocio para create, getAll (filtrado por userId), getById, update y delete. Debe asegurar que un usuario solo pueda modificar sus propias tareas.
+> - `taskController.ts`: Orquestador que extraiga el userId de req.user (inyectado por el authGuard) y maneje las respuestas HTTP con códigos de estado correctos (201, 200, 204).
+> - `taskRoutes.ts`: Definición de rutas protegidas. Todas las rutas deben usar el authGuard. Las rutas POST y PATCH deben incluir el middleware de validación con Zod.
+>
+> Requisitos técnicos: Uso de Prisma ORM, implementación de DTOs, manejo de errores centralizado con AppError, tipado estricto en cada capa.
+
+**Respuesta recibida:**
+- `taskService.ts` creado
+- `taskController.ts` creado
+- `taskRoutes.ts` creado
+
+**Qué se aceptó y por qué:**
+
+- `taskService.ts` — Encapsula las reglas de negocio de las tareas
+- `taskController.ts` — Desacopla el protocolo HTTP de la lógica de forma correcta
+- `taskRoutes.ts` — Define el pipeline de ejecución de la API
+
+**Verificación realizada:**
+- Valida la propiedad del recurso mediante el `userId`
+- Gestiona códigos de estado (201, 204) y captura errores
+- Aplica el `authGuard` y el middleware de validación en el orden correcto
+
+**Sin uso de IA** para la integración en `app.ts`.
+
+---
+
+## 10. Documentación Swagger
+
+### Uso de IA
+
+**Prompt:**
+> Contexto: Generar la especificación técnica de la API en formato YAML (OpenAPI 3.0.0) para un sistema de gestión de tareas. La API utiliza una arquitectura REST y seguridad basada en JWT (Bearer Auth).
+>
+> Requisitos del contrato:
+> - Endpoints de Autenticación: POST /auth/register y POST /auth/login
+> - Endpoints de Tareas (Protegidos): CRUD completo para /tasks y /tasks/{id}
+> - Modelos de Datos: User, Task, SuccessResponse y ErrorResponse
+> - Validaciones: formatos de datos (uuid, email, date-time) y códigos de estado HTTP correctos (200, 201, 401, 403, 404, 409)
+>
+> Objetivo: Obtener un archivo swagger.yaml que sirva como fuente de verdad para el equipo de Frontend.
+
+**Respuesta recibida:**
+- `swagger.yaml` creado
+
+**Qué se aceptó y por qué:**
+Se aceptó la implementación porque estandariza la comunicación entre Backend y Frontend. El uso de un contrato formal elimina ambigüedades en los tipos de datos, facilita las pruebas automáticas y permite que otros desarrolladores entiendan e integren la API sin necesidad de leer el código fuente.
+
+**Verificación realizada:**
+Contrato de seguridad verificado, estandarización de respuestas confirmada.
+
+---
+
+## 11. Pruebas unitarias con Vitest
+
+### Uso de IA
+
+**Prompt:**
+> Desarrollar pruebas unitarias utilizando Vitest para validar la lógica de negocio de una API REST. Se busca garantizar que los servicios respondan correctamente tanto en casos de éxito como en escenarios de error de todos los modulos
+
+**Respuesta recibida:**
+Pruebas generadas para los siguientes módulos:
+- `AppError` — Clases de error personalizadas
+- `authGuard` — Middleware JWT
+- `errorHandler` — Middleware global de errores
+- `validate` — Middleware de validación Zod
+- `authService` — Funciones register y login
+- `taskService` — CRUD completo con ownership
+- `authController`
+- `taskController`
+- Validación de schemas Zod
+
+**Qué se aceptó y por qué:**
+Al implementar pruebas unitarias con mocks, se logra validar la lógica de negocio de forma aislada de la infraestructura, lo que permite detectar errores sin depender de la base de datos.
+
+**Verificación realizada:**
+
+- **Independencia de entorno** — Se verifica que las pruebas se ejecutan correctamente en un entorno limpio de Node.js sin necesidad de levantar contenedores de base de datos.
+- **Control de excepciones** — Se verifica que el flujo de errores tipados (`AppError`) funciona correctamente, asegurando que el Frontend reciba códigos de estado precisos.
