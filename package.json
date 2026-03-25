@@ -16,7 +16,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --exit-child src/server.ts",
-    "build": "tsc && xcopy /Y /I src\\docs\\swagger.yaml dist\\docs\\",
+    "build": "tsc",
     "start": "node dist/server.js",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",

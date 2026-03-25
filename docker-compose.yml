@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: taskuser
+      POSTGRES_PASSWORD: taskpass
+      POSTGRES_DB: taskmanager
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://taskuser:taskpass@db:5432/taskmanager
+      JWT_SECRET: ${JWT_SECRET:-supersecreto_cambiar_en_produccion}
+      PORT: 3000
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
