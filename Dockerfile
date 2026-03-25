@@ -36,8 +36,8 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY prisma ./prisma
 COPY prisma.config.ts ./
 
-# Solo dependencias de producción
-RUN pnpm install --frozen-lockfile --prod
+# Copiar node_modules del builder (incluye prisma CLI para las migraciones)
+COPY --from=builder /app/node_modules ./node_modules
 
 # Copiar el build y el cliente generado de Prisma
 COPY --from=builder /app/dist ./dist
