@@ -268,3 +268,36 @@ Uso de IA:
     "
 No uso de IA
 Integracion a app.ts 
+
+10. Documentacion Swagger
+Uso de IA:
+    prompt:
+    "
+    Contexto:
+    Generar la especificación técnica de la API en formato YAML (OpenAPI 3.0.0) para un sistema de gestión de tareas. La API utiliza una arquitectura REST y seguridad basada en JWT (Bearer Auth).
+
+    Requisitos del contrato:
+
+    Endpoints de Autenticación: POST /auth/register y POST /auth/login.
+
+    Endpoints de Tareas (Protegidos): CRUD completo para /tasks y /tasks/{id}, asegurando que cada operación requiera el token en el header.
+
+    Modelos de Datos (Schemas): Definir objetos para User, Task, SuccessResponse y ErrorResponse (con mensajes de error estandarizados).
+
+    Validaciones: Incluir formatos de datos (uuid, email, date-time) y códigos de estado HTTP correctos (200, 201, 401, 403, 404, 409).
+
+    Objetivo:
+    Obtener un archivo swagger.yaml que sirva como "fuente de verdad" para el equipo de Frontend y que pueda ser renderizado mediante Swagger UI.
+    "
+    Respuesta:
+    "
+    swagger.yaml creado
+    "
+    Se acepto:
+    "
+    Se aceptó la implementación de la documentación con Swagger para estandarizar la comunicación entre el Backend y el Frontend. El uso de un contrato formal elimina ambigüedades en los tipos de datos, facilita las pruebas automáticas y permite que otros desarrolladores entiendan e integren la API sin necesidad de leer el código fuente
+    "
+    verificacion:
+    "
+    contrato de Seguridad, Estandarización de respuestas
+    "

@@ -24,6 +24,7 @@ Este proyecto consiste en el desarrollo de una API RESTful robusta y segura util
   /utils            # Helpers 
   /schemas          # Validaciones con Zod 
   /errores          # Errores personalizados
+  /docs             # Documentacion swagger
   app.ts            # Configura Express, middlewares y rutas
   server.ts         # Servidor
 
