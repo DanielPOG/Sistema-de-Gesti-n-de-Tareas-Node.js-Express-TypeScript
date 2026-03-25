@@ -164,3 +164,59 @@ Uso de IA:
     "
     Consultando en la documentacion (https://javascript.info/custom-errors) cumple de manera correcta para hacer errores personalizados
     "
+8. Auth
+zod
+No uso de IA
+se crea el archivo de schemas.ts para la validacion de zod 
+    razonamiento:
+    "
+    Se utiliza zod como validor de schemas para la validacion de reglas en tiempo de ejecucion, saneamiento ademas asi reducimos los errores inesperados 
+    "
+Middleware de validacion para zod 
+se crea el archivo validate.ts para que la validacion zod se cumpla
+    razonamiento:
+    "
+    Se utiliza para el saneamiento, el parseo y la protección de la lógica de negocio, asegurando que el controlador solo reciba datos que cumplen estrictamente con el contrato definido por el esquema
+    "
+Uso de IA 
+    Prompt:
+    "
+    Vamos hacer la logica en el serice pero para lo relacionado con el auth , en este caso para register y login, ten encuenta lo del hash con bcrypt
+    "
+    Respuesta:
+    "
+    authService.ts creado 
+    contiene funcion register , funcion login
+    "
+    se acepta:"Se acepta porque las funciones son correctas, hace el uso del repositorio , maneja los errores personalizados y cumple la regla del hash  a la contraseña"
+    Verificacion:
+    "
+    Cumple con los criterios del service 
+    No aluciona respecto a los errores
+    utiliza los registerDto y logindto
+    "
+Uso de Ia:
+    Prompt:
+    "
+    Teniendo el cuenta el authService.ts crea el controller con el nombre de authController (tipa estrictamente) y crea tambien el autGuard que es el middleware para proteger rutas privadas verificando el Token JWT
+    "
+    Respuesta:
+    "
+    authController.ts creado
+    authGuard.ts creado
+    "
+    Se acepta:
+    "
+    authController.ts = Orquesta la comunicacion http de manera correcta
+    authGuard.ts = La extraccion del token es correcta con Bearer  y solo se queda el token con el split, hace verificacion 
+    "
+    Verificacion:
+    "
+    authController.ts
+    tipa estrictamente referente al request nada de parametros {}
+    las funciones  son async maneja el uso de errores 
+    authGuard.ts
+    Se verifica la autenticidad e integridad de la petición mediante la validación del esquema Bearer Token, valida firma y inyecta identidad  del usuario userId
+    "
+No uso de IA
+se crea el archivo authRoutes.ts donde se mapea los endpoints

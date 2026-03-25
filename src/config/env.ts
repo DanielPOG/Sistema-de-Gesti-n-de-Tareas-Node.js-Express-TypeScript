@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-
+import type { StringValue } from "ms" 
 dotenv.config();
 
 /**
@@ -31,13 +31,13 @@ class Config {
     public readonly jwtSecret: string;
 
     /** Tiempo de expiración de los tokens JWT. Por defecto `'7d'`. */
-    public readonly jwtExpiresIn: string;
+    public readonly jwtExpiresIn: StringValue ;
 
     private constructor() {
         this.port = parseInt(process.env.PORT ?? "3000", 10);
         this.databaseUrl = this.require("DATABASE_URL");
         this.jwtSecret = this.require("JWT_SECRET");
-        this.jwtExpiresIn = process.env.JWT_EXPIRES_IN ?? "7d";
+        this.jwtExpiresIn = (process.env.JWT_EXPIRES_IN ?? "7d") as StringValue;
     }
 
     /**
