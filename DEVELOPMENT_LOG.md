@@ -301,3 +301,30 @@ Uso de IA:
     "
     contrato de Seguridad, Estandarización de respuestas
     "
+11. Pruebas unitarias vitest 
+Uso de IA:
+    Prompt:
+    "
+    Desarrollar  pruebas unitarias utilizando Vitest para validar la lógica de negocio de una API REST . Se busca garantizar que los servicios respondan correctamente tanto en casos de éxito como en escenarios de error de todos los modulos
+    "
+    Respuesta:
+    "
+    - AppError custom error classes
+    - authGuard JWT middleware
+    - errorHandler global middleware
+    - validate Zod middleware
+    - authService (register/login)
+    - taskService (CRUD + ownership)
+    - authController
+    - taskController
+    - Zod schemas validation
+    "
+    Se acepta:
+    "
+    Al implementar pruebas unitarias con Mocks, se logra validar la lógica de negocio de forma aislada de la infraestructura, lo que permite detectar errores
+    "
+    Verificacion:
+    "
+    independencia de Entorno = Se verifica que las pruebas se ejecutan correctamente en un entorno limpio de Node.js sin necesidad de levantar contenedores de base de dato
+    Control de Excepciones = Se verifica que el flujo de errores tipados (AppError) funcione correctamente, asegurando que el Frontend reciba códigos de estado precisos
+    "
