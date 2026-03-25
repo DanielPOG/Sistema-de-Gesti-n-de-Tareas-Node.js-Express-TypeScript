@@ -220,3 +220,51 @@ Uso de Ia:
     "
 No uso de IA
 se crea el archivo authRoutes.ts donde se mapea los endpoints
+9. Task Crud
+Uso de IA:
+    Prompt:
+    "
+    Contexto:
+    Generar el módulo de tareas (Task) para una API REST con Node.js y TypeScript, siguiendo una arquitectura de tres capas y respetando la relación 1:N (un usuario tiene muchas tareas).
+
+    Archivos a generar:
+
+    taskService.ts: Lógica de negocio para create, getAll (filtrado por userId), getById, update y delete. Debe asegurar que un usuario solo pueda modificar sus propias tareas.
+
+    taskController.ts: Orquestador que extraiga el userId de req.user (inyectado por el authGuard) y maneje las respuestas HTTP con códigos de estado correctos (201, 200, 204).
+
+    taskRoutes.ts: Definición de rutas protegidas. Todas las rutas deben usar el authGuard. Las rutas POST y PATCH deben incluir el middleware de validación con Zod.
+
+    Requisitos técnicos:
+
+    Uso de Prisma ORM para la persistencia.
+
+    Implementación de DTOs para la creación y actualización de tareas.
+
+    Manejo de errores centralizado con AppError (NotFoundError, ForbiddenError).
+
+    Tipado estricto en cada capa.
+    "
+    Respuesta:
+    "
+    taskService.ts creado
+    taskController.ts creado 
+    taskRoutes.ts creado
+    "
+    Se acepta:
+    "
+    taskService.ts
+    Encapsula las reglas de negocio de las tareas 
+    taskController.ts
+    Desacopla el protocolo HTTP de la lógica de forma correcta
+    taskRoutes.ts
+    Define el pipeline de ejecución de la API
+    "
+    Verificacion:
+    "
+    Valida la propiedad del recurso mediante el userId,
+    Gestiona códigos de estado (201, 204) y captura errores.
+    Aplica el authGuard y el middleware de validación en orden, 
+    "
+No uso de IA
+Integracion a app.ts 
